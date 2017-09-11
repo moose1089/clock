@@ -64,10 +64,13 @@
 (defn express-hours
   [h m]
   (let [
-        reference-hour (if  (<= m 30) h (inc h))
+        reference-hour (if  (<= m 30) h (rem (inc h) 24))
         x (if (<= reference-hour 12) reference-hour (- reference-hour 12))
         am-pm (if (< reference-hour 12) "am" "pm")]
-     (str x " " am-pm)
+    (cond
+      (= reference-hour 0 ) "midnight"
+      (= reference-hour 12 ) "noon"
+      :default (str (number-to-words x) " " am-pm))
     )
   )
 
@@ -79,9 +82,6 @@
         hour-expression (express-hours hours mins)
         ]
     [hours mins minute-expression hour-expression])
-
-
-
 
   )
 
@@ -96,6 +96,7 @@
 
 
 (time-sentence "00:00")
+(time-sentence "00:02")
 
 (time-sentence "23:59")
 
