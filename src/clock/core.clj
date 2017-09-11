@@ -41,12 +41,58 @@
     )
   )
 
+
 (number-to-words 3)
 (number-to-words 10)
 (number-to-words 13)
 (number-to-words 23)
 (number-to-words 30)
 (number-to-words 0)
+
+(defn as-int [x] (read-string x))
+
+(defn express-mins
+  [m]
+  (let [
+        x (if (<= m 30) m (- 60 m))
+        to-past (if (<= m 30) "past" "to")
+        ]
+    (if (zero? x) ""
+        (str (number-to-words x) " minutes " to-past )))
+  )
+
+(defn express-hours
+  [h m]
+  (let [
+        reference-hour (if  (<= m 30) h (inc h))
+        x (if (<= reference-hour 12) reference-hour (- reference-hour 12))
+        am-pm (if (< reference-hour 12) "am" "pm")]
+     (str x " " am-pm)
+    )
+  )
+
+;; 14:18 => eighteen minutes past 2 pm
+(defn time-sentence
+  [time]
+  (let [[hours mins] (mapv as-int  (clojure.string/split time #":"))
+        minute-expression (express-mins mins)
+        hour-expression (express-hours hours mins)
+        ]
+
+
+    [hours mins minute-expression hour-expression])
+
+
+
+
+  )
+
+(time-sentence "14:18")
+
+(time-sentence "14:48")
+
+(time-sentence "14:00")
+
 
 
 (defn -main
