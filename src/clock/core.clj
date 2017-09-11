@@ -51,14 +51,23 @@
 
 (defn as-int [x] (read-string x))
 
+(defn pluralise [n s]
+  (if (= n 1)
+    s
+    (str s "s"))
+  )
+
 (defn express-mins
   [m]
   (let [
         x (if (<= m 30) m (- 60 m))
         to-past (if (<= m 30) "past" "to")
         ]
-    (if (zero? x) ""
-        (str (number-to-words x) " minutes " to-past )))
+    (cond
+      (zero? x) nil
+      (= 15 x) (str "quarter " to-past)
+      (= 30 x) "half past"
+      :def (str (number-to-words x) " " (pluralise x "minute") " " to-past )))
   )
 
 (defn express-hours
@@ -81,9 +90,15 @@
         minute-expression (express-mins mins)
         hour-expression (express-hours hours mins)
         ]
-    [hours mins minute-expression hour-expression])
+    (str minute-expression " " hour-expression))
 
   )
+
+
+(time-sentence "14:30")
+
+(time-sentence "14:15")
+(time-sentence "14:45")
 
 (time-sentence "14:18")
 
@@ -91,11 +106,11 @@
 
 (time-sentence "14:00")
 
-
 (time-sentence "12:00")
-
+(time-sentence "12:01")
 
 (time-sentence "00:00")
+
 (time-sentence "00:02")
 
 (time-sentence "23:59")
