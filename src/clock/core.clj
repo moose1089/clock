@@ -78,8 +78,6 @@
         minute-expression (express-mins mins)
         hour-expression (express-hours hours mins)
         ]
-
-
     [hours mins minute-expression hour-expression])
 
 
@@ -93,6 +91,13 @@
 
 (time-sentence "14:00")
 
+
+(time-sentence "12:00")
+
+
+(time-sentence "00:00")
+
+(time-sentence "23:59")
 
 
 (defn -main
