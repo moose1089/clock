@@ -5,7 +5,7 @@
                  2 "twenty"
                  3 "thirty"})
 
-(def small-words {0 "zero"
+(def small-words {0 nil
                   1 "one"
                   2 "two"
                   3 "three"
@@ -34,12 +34,6 @@
                    units (rem n 10)]
                (str (tens-words tens) (small-words  units)))))
 
-(number-to-words 3)
-(number-to-words 10)
-(number-to-words 13)
-(number-to-words 23)
-(number-to-words 30)
-(number-to-words 0)
 
 (defn as-int [x] (read-string x))
 
@@ -76,34 +70,13 @@
         hour-expression (express-hours hours mins)]
     (str minute-expression  hour-expression)))
 
-(time-sentence "14:30")
-
-(time-sentence "14:15")
-(time-sentence "14:45")
-
-(time-sentence "14:18")
-
-(time-sentence "14:48")
-
-(time-sentence "14:00")
-
-(time-sentence "12:00")
-(time-sentence "12:01")
-
-(time-sentence "00:00")
-
-(time-sentence "00:02")
-
-(time-sentence "23:59")
-(time-sentence "23:45")
-
 (defn -main
   [& args]
   (doseq [time ["00:00"
               "14:30"
               "14:15"
               "14:45"
-              "14:18"
+              "14:20"
               "14:48"
               "14:00"
               "12:00"
